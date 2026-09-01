@@ -212,7 +212,7 @@ const I18N_DATA = {
     footer_hq_addr: "Amman, Jordan | P.O. Box 930185",
     footer_algeria_title: "Algeria Regional Office",
     footer_inquiries_title: "Direct Inquiries",
-    footer_rights: "© 2026 Dar Al Dawa Development & Investment Co. All rights reserved.",
+    footer_rights: "© 2026 Dar Al Dawa. All rights reserved.",
     footer_privacy: "Privacy Policy",
     footer_terms: "Terms of Use",
     footer_regulatory: "Regulatory Statement"
@@ -424,7 +424,7 @@ const I18N_DATA = {
     footer_hq_addr: "عمّان، الأردن | ص.ب 930185",
     footer_algeria_title: "المكتب الإقليمي في الجزائر",
     footer_inquiries_title: "الاستفسارات المباشرة",
-    footer_rights: "© 2026 شركة دار الدواء للتنمية والاستثمار. جميع الحقوق محفوظة.",
+    footer_rights: "© 2026 دار الدواء. جميع الحقوق محفوظة.",
     footer_privacy: "سياسة الخصوصية",
     footer_terms: "شروط الاستخدام",
     footer_regulatory: "البيان التنظيمي"
@@ -636,7 +636,7 @@ const I18N_DATA = {
     footer_hq_addr: "Amman, Jordanie | B.P. 930185",
     footer_algeria_title: "Bureau Régional Algérie",
     footer_inquiries_title: "Demandes Directes",
-    footer_rights: "© 2026 Dar Al Dawa Development & Investment Co. Tous droits réservés.",
+    footer_rights: "© 2026 Dar Al Dawa. Tous droits réservés.",
     footer_privacy: "Politique de Confidentialité",
     footer_terms: "Conditions d'Utilisation",
     footer_regulatory: "Déclaration Réglementaire"

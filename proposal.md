@@ -1,7 +1,7 @@
 # Commercial & Technical Proposal
 ## Modern Corporate Website & Custom Node.js Admin Panel
 
-**Client:** Dar Aldawa Development & Investment Co. (DAD Group)  
+**Client:** Dar Aldawa (DAD Group)  
 **Website:** [www.dadgroup.com](https://www.dadgroup.com/)  
 **Prepared By:** BoldPro  
 **Proposal Version:** 1.0 (Definitive Scope & Governance Specification)  
@@ -12,7 +12,7 @@
 
 ## 1. Executive Summary & Strategic Value Proposition
 
-**BoldPro** is pleased to submit this comprehensive technical and commercial proposal to **Dar Aldawa Development & Investment Co. (DAD Group)** for the complete redesign, bespoke engineering, and deployment of a modern corporate website and custom administrative management system.
+**BoldPro** is pleased to submit this comprehensive technical and commercial proposal to **Dar Aldawa (DAD Group)** for the complete redesign, bespoke engineering, and deployment of a modern corporate website and custom administrative management system.
 
 Established in 1975, Dar Aldawa is one of the premier pharmaceutical manufacturing and healthcare leaders in the Middle East and North Africa (MENA) region, exporting life-saving pharmaceuticals and consumer healthcare formulations across dozens of global markets. To match this stellar scientific heritage and market leadership, DAD Group requires a digital platform that conveys institutional trust, innovation, and global compliance.
 
