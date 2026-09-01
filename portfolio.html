@@ -43,22 +43,29 @@
       overflow-x: auto;
     }
     .cat-btn {
-      background: #F8F9FC;
+      background: #FFFFFF;
       border: 1px solid var(--border-light);
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 9999px;
       font-family: var(--font-heading);
       font-size: 13px;
       font-weight: 600;
-      color: #0D2137;
+      color: #475569;
       cursor: pointer;
       white-space: nowrap;
       transition: all var(--transition);
+      box-shadow: none;
     }
-    .cat-btn.active, .cat-btn:hover {
-      background: #00997A;
+    .cat-btn:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      color: #0D2137;
+    }
+    .cat-btn.active {
+      background: #0D2137;
       color: #FFFFFF;
-      border-color: #00997A;
+      border-color: #0D2137;
+      box-shadow: none;
     }
     .search-input-field {
       padding: 8px 16px;

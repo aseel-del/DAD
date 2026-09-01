@@ -2180,11 +2180,16 @@ button {
   transition: all 0.15s ease;
 }
 
-.search-cat-tab:hover,
+.search-cat-tab:hover {
+  background: #F1F5F9;
+  color: #0D2137;
+  border-color: #CBD5E1;
+}
+
 .search-cat-tab.active {
-  background: #00997A;
+  background: #0D2137;
   color: #FFFFFF;
-  border-color: #00997A;
+  border-color: #0D2137;
 }
 
 .search-results-list {
