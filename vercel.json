@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "buildCommand": null,
+  "outputDirectory": ".",
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/admin/?",
+      "dest": "/admin/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
