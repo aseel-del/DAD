@@ -35,5 +35,20 @@ ErrorDocument 404 /404.html
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
 
-# 5. Directory Index
+# 5. URL Rewriting for Clean Routing
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Rewrite /login to /login.html
+  RewriteRule ^login/?$ login.html [L,QSA]
+
+  # Rewrite /admin/login to /admin/login.html
+  RewriteRule ^admin/login/?$ admin/login.html [L,QSA]
+
+  # Rewrite /admin to /admin/index.html
+  RewriteRule ^admin/?$ admin/index.html [L,QSA]
+</IfModule>
+
+# 6. Directory Index
 DirectoryIndex index.html

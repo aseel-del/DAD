@@ -7,6 +7,14 @@
       "handle": "filesystem"
     },
     {
+      "src": "/login/?",
+      "dest": "/login.html"
+    },
+    {
+      "src": "/admin/login/?",
+      "dest": "/admin/login.html"
+    },
+    {
       "src": "/admin/?",
       "dest": "/admin/index.html"
     },
