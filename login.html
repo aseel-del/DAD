@@ -12,8 +12,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
   
   <style>
-    * {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    body.login-page, body.login-page * {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    body.login-page .material-symbols-outlined, 
+    body.login-page [class*="material-symbols"] {
+      font-family: 'Material Symbols Outlined' !important;
+      font-weight: normal;
+      font-style: normal;
+      font-size: 20px;
+      line-height: 1;
+      letter-spacing: normal;
+      text-transform: none;
+      display: inline-block;
+      white-space: nowrap;
+      word-wrap: normal;
+      direction: ltr;
+      -webkit-font-smoothing: antialiased;
     }
 
     body.login-page {
@@ -26,7 +42,6 @@
       margin: 0;
       position: relative;
       overflow: hidden;
-      font-family: 'Inter', sans-serif;
     }
 
     /* Ambient background glow rings */
@@ -55,10 +70,10 @@
     .login-card-container {
       width: 100%;
       max-width: 440px;
-      background: rgba(255, 255, 255, 0.98);
+      background: #FFFFFF;
       border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 20px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
       padding: 40px;
       position: relative;
       z-index: 10;
@@ -75,23 +90,23 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 14px;
+      margin-bottom: 28px;
     }
 
     .login-logo-wrap {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: #0D2137;
-      padding: 16px 32px;
-      border-radius: 18px;
-      box-shadow: 0 8px 24px rgba(13, 33, 55, 0.2);
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      margin-bottom: 4px;
     }
 
     .login-logo-wrap img {
-      height: 54px;
-      max-width: 220px;
+      height: 58px;
+      max-width: 230px;
       width: auto;
       object-fit: contain;
     }
@@ -218,7 +233,7 @@
       font-size: 14.5px;
       font-weight: 700;
       cursor: pointer;
-      box-shadow: 0 4px 14px rgba(0, 153, 122, 0.35);
+      box-shadow: none;
       transition: all 0.2s ease;
       margin-top: 4px;
     }
@@ -226,7 +241,6 @@
     .btn-login-submit:hover {
       background: #008066;
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 153, 122, 0.4);
     }
 
     .login-error-banner {
@@ -313,7 +327,7 @@
     <!-- Brand Header -->
     <div class="login-brand-header">
       <div class="login-logo-wrap">
-        <img src="images/logo-footer-white.png" alt="Dar Aldawa - Trusted Quality">
+        <img src="images/logo.png" alt="Dar Aldawa - Trusted Quality">
       </div>
       <h1 class="login-title">Sign In</h1>
       <p class="login-subtitle">Enter your credentials to manage website content</p>
