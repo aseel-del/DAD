@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Portfolio | Dar Aldawa Pharmaceutical Catalog</title>
+  <meta name="description" content="Explore over 200 high-quality pharmaceutical formulations across cardiovascular, anti-infective, gastrointestinal, and central nervous system therapeutics.">
+  
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/rtl.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+  
+  <style>
+    .page-hero {
+      background: linear-gradient(0deg, rgba(13, 33, 55, 0.85), rgba(13, 33, 55, 0.85)),
+                  url('https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=2000&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      color: #FFFFFF;
+      padding: 100px 40px 60px;
+    }
+    .filter-bar-wrap {
+      background: #FFFFFF;
+      padding: 20px 40px;
+      border-bottom: 1px solid var(--border-light);
+      position: sticky;
+      top: 88px;
+      z-index: 100;
+      box-shadow: 0 4px 12px rgba(13,33,55,0.03);
+    }
+    .filter-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-btn-group {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+    .cat-btn {
+      background: #F8F9FC;
+      border: 1px solid var(--border-light);
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-family: var(--font-heading);
+      font-size: 13px;
+      font-weight: 600;
+      color: #0D2137;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all var(--transition);
+    }
+    .cat-btn.active, .cat-btn:hover {
+      background: #00997A;
+      color: #FFFFFF;
+      border-color: #00997A;
+    }
+    .search-input-field {
+      padding: 8px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      font-size: 14px;
+      width: 280px;
+      outline: none;
+    }
+    .search-input-field:focus {
+      border-color: #00997A;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 60px 40px 100px;
+    }
+    .catalog-item-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+    .catalog-item-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 32px rgba(13, 33, 55, 0.08);
+      border-color: #00997A;
+    }
+    @media (max-width: 1024px) {
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
+      .search-input-field { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Sticky Nav (Centered) -->
+  <header class="sticky-nav">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand-logo" aria-label="Dar Aldawa Home">
+        <img src="images/logo.png" alt="Dar Aldawa 50 Years of Excellence - Trusted Quality" class="brand-logo-img">
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links-list">
+          
+          <!-- About Us -->
+          <li class="nav-link-item">
+            <a href="404.html" class="nav-link-btn">
+              <span data-i18n="nav_about">About Us</span>
+              <span class="material-symbols-outlined nav-caret-icon">expand_more</span>
+            </a>
+            <div class="megamenu-dropdown megamenu-wide">
+              <div class="megamenu-grid-with-feature">
+                <div>
+                  <div class="megamenu-col-header" data-i18n="nav_about">About Dar Aldawa</div>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">corporate_fare</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_overview">Company Overview</div></div>
+                    </a>
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">history</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_history">50-Year Milestones</div></div>
+                    </a>
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">person</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_chairman">Chairman's Message</div></div>
+                    </a>
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">groups</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_board">Board of Directors</div></div>
+                    </a>
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">badge</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_ceo">CEO Message</div></div>
+                    </a>
+                    <a href="404.html" class="megamenu-link-entry">
+                      <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">flag</span></div>
+                      <div><div class="megamenu-link-title" data-i18n="mm_about_mvv">Mission, Vision & Values</div></div>
+                    </a>
+                  </div>
+                </div>
+                <div class="megamenu-feature-card">
+                  <div>
+                    <span class="megamenu-feature-badge">50TH ANNIVERSARY</span>
+                    <h4 class="megamenu-feature-title">Celebrating 50 Years</h4>
+                    <p class="megamenu-feature-desc">Five decades of delivering trusted quality healthcare solutions across 40+ countries.</p>
+                  </div>
+                  <a href="404.html" class="btn-solid-teal" style="padding: 8px 16px; font-size: 12px; width: fit-content;">
+                    <span>Explore Heritage</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Portfolio -->
+          <li class="nav-link-item">
+            <a href="portfolio.html" class="nav-link-btn" style="color: #00997A; font-weight: 700;">
+              <span data-i18n="nav_portfolio">Portfolio</span>
+              <span class="material-symbols-outlined nav-caret-icon">expand_more</span>
+            </a>
+            <div class="megamenu-dropdown megamenu-full">
+              <div class="megamenu-col-header" data-i18n="port_heading">Therapeutic Areas & Product Portfolio</div>
+              <div class="megamenu-grid-4col">
+                <ul class="megamenu-links-stack">
+                  <li><a href="portfolio.html?cat=anti-infectives" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">medication</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_anti">Anti-Infectives</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=cardio" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">cardiology</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_cardio">Cardiovascular & Diabetes</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=cns" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">psychology</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_cns">Central Nervous System (CNS)</div></div>
+                  </a></li>
+                </ul>
+                <ul class="megamenu-links-stack">
+                  <li><a href="portfolio.html?cat=gastro" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">health_and_safety</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_gastro">Gastrointestinal</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=respiratory" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">pulmonology</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_resp">Respiratory</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=analgesic" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">healing</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_analgesic">Analgesic & Musculoskeletal</div></div>
+                  </a></li>
+                </ul>
+                <ul class="megamenu-links-stack">
+                  <li><a href="portfolio.html?cat=urology" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">biotech</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_uro">Urology</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=dermatology" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">dermatology</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_derm">Dermatology</div></div>
+                  </a></li>
+                  <li><a href="portfolio.html?cat=ophthalmology" class="megamenu-link-entry">
+                    <div class="megamenu-link-icon-box"><span class="material-symbols-outlined">visibility</span></div>
+                    <div><div class="megamenu-link-title" data-i18n="mm_cat_opht">Ophthalmology</div></div>
+                  </a></li>
+                </ul>
+                <div class="megamenu-feature-card" style="background: #00997A;">
+                  <div>
+                    <span class="megamenu-feature-badge" style="background: #0D2137;">INTERACTIVE CATALOG</span>
+                    <h4 class="megamenu-feature-title" style="font-size: 16px;">Over 200 Formulations</h4>
+                    <p class="megamenu-feature-desc" style="color: #EBFDF9;">Filter by therapeutic area, search by Active Ingredient (API), and download Prescribing Information.</p>
+                  </div>
+                  <a href="portfolio.html" class="btn-outline-white" style="padding: 8px 16px; font-size: 12px; border-color: #FFFFFF; color: #FFFFFF;">
+                    <span data-i18n="mm_cat_view_all">View Full Catalog</span>
+                    <span class="material-symbols-outlined" style="font-size: 16px;">arrow_forward</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Capabilities -->
+          <li class="nav-link-item">
+            <a href="404.html" class="nav-link-btn">
+              <span data-i18n="nav_capabilities">Capabilities</span>
+              <span class="material-symbols-outlined nav-caret-icon">expand_more</span>
+            </a>
+            <div class="megamenu-dropdown megamenu-compact">
+              <div class="megamenu-col-header" data-i18n="cap_heading">Industrial Power</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">factory</span></div><div><div class="megamenu-link-title" data-i18n="mm_cap_plants">7 Production Plants</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">biotech</span></div><div><div class="megamenu-link-title" data-i18n="mm_cap_rnd">R&D Center</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">verified</span></div><div><div class="megamenu-link-title" data-i18n="mm_cap_qa">Quality Assurance</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">assignment</span></div><div><div class="megamenu-link-title" data-i18n="mm_cap_reg">Regulatory Affairs</div></div></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- Presence -->
+          <li class="nav-link-item">
+            <a href="index.html#reach" class="nav-link-btn">
+              <span data-i18n="nav_reach">Presence</span>
+              <span class="material-symbols-outlined nav-caret-icon">expand_more</span>
+            </a>
+            <div class="megamenu-dropdown megamenu-compact">
+              <div class="megamenu-col-header" data-i18n="reach_heading">Global Reach</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <a href="index.html#reach" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">location_on</span></div><div><div class="megamenu-link-title" data-i18n="mm_reach_jordan">Jordan HQ & 4 Plants</div></div></a>
+                <a href="index.html#reach" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">location_on</span></div><div><div class="megamenu-link-title" data-i18n="mm_reach_algeria">Algeria Hub & 3 Plants</div></div></a>
+                <a href="index.html#reach" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">business</span></div><div><div class="megamenu-link-title" data-i18n="mm_reach_mena">MENA Commercial Offices</div></div></a>
+                <a href="index.html#reach" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">public</span></div><div><div class="megamenu-link-title" data-i18n="mm_reach_global">Interactive 3D Globe</div></div></a>
+              </div>
+            </div>
+          </li>
+
+          <!-- Investors -->
+          <li class="nav-link-item">
+            <a href="404.html" class="nav-link-btn">
+              <span data-i18n="nav_investors">Investors</span>
+              <span class="material-symbols-outlined nav-caret-icon">expand_more</span>
+            </a>
+            <div class="megamenu-dropdown megamenu-compact">
+              <div class="megamenu-col-header" data-i18n="investors_heading">Investor Relations</div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">bar_chart</span></div><div><div class="megamenu-link-title" data-i18n="mm_inv_reports">Financial Statements</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">account_balance</span></div><div><div class="megamenu-link-title" data-i18n="mm_inv_assembly">General Assembly</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">gavel</span></div><div><div class="megamenu-link-title" data-i18n="mm_inv_board">Board Resolutions</div></div></a>
+                <a href="404.html" class="megamenu-link-entry"><div class="megamenu-link-icon-box"><span class="material-symbols-outlined">balance</span></div><div><div class="megamenu-link-title" data-i18n="mm_inv_gov">Corporate Governance</div></div></a>
+              </div>
+            </div>
+          </li>
+
+          <li class="nav-link-item">
+            <a href="404.html" class="nav-link-btn" data-i18n="nav_contact">Contact Us</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Actions Group -->
+      <div class="nav-actions-group">
+        <!-- Modern Language Dropdown Switcher -->
+        <div class="lang-dropdown-wrap">
+          <button class="lang-dropdown-btn" id="langDropdownBtn" aria-label="Change Language">
+            <span class="material-symbols-outlined lang-globe-icon">language</span>
+            <span class="current-lang-code" id="currentLangLabel">EN</span>
+            <span class="material-symbols-outlined lang-arrow-icon">expand_more</span>
+          </button>
+          <div class="lang-dropdown-menu" id="langDropdownMenu">
+            <button class="lang-menu-item active" data-lang="en">
+              <span class="lang-native-name">English</span>
+              <span class="lang-iso-badge">EN</span>
+            </button>
+            <button class="lang-menu-item" data-lang="ar">
+              <span class="lang-native-name">العربية</span>
+              <span class="lang-iso-badge">AR</span>
+            </button>
+            <button class="lang-menu-item" data-lang="fr">
+              <span class="lang-native-name">Français</span>
+              <span class="lang-iso-badge">FR</span>
+            </button>
+          </div>
+        </div>
+
+        <a href="404.html" class="safety-btn">
+          <span class="material-symbols-outlined safety-icon">health_and_safety</span>
+          <span data-i18n="btn_pharmacovigilance">Pharmacovigilance</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="inner-container reveal-on-scroll">
+      <div class="anniversary-label" style="background: rgba(0,153,122,0.2); color: #5CE1C6;" data-i18n="port_label">THERAPEUTIC CATALOG</div>
+      <h1 class="hero-main-heading" style="font-size: 52px; margin-top: 16px;" data-i18n="port_heading">Diversified Pharmaceutical Solutions</h1>
+      <p class="hero-description-text" style="margin-top: 16px; max-width: 720px;" data-i18n="port_desc">
+        Over 200 bioequivalent treatments formulated across our state-of-the-art CGMP manufacturing facilities in Jordan and Algeria.
+      </p>
+    </div>
+  </section>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar-wrap">
+    <div class="inner-container filter-flex">
+      <div class="filter-btn-group">
+        <button class="cat-btn active" data-cat="all">All Formulations (200+)</button>
+        <button class="cat-btn" data-cat="cardio">Cardiovascular</button>
+        <button class="cat-btn" data-cat="anti-infectives">Anti-Infectives</button>
+        <button class="cat-btn" data-cat="gastro">Gastroenterology</button>
+        <button class="cat-btn" data-cat="cns">Central Nervous System</button>
+      </div>
+      <input type="text" id="catalogSearchInput" class="search-input-field" placeholder="Search by brand name or API...">
+    </div>
+  </div>
+
+  <!-- Products Grid -->
+  <main class="inner-container">
+    <div class="products-grid" id="productGrid">
+      <div class="catalog-item-card reveal-on-scroll delay-100" data-cat="cardio">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">Cardiovascular</span>
+          <h3 class="p-card-title">Atorva®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Atorvastatin Calcium</div>
+          <p class="p-card-desc">Leading lipid-lowering therapeutic for primary prevention of cardiovascular events and hypercholesterolemia management.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="catalog-item-card reveal-on-scroll delay-200" data-cat="anti-infectives">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">Anti-Infectives</span>
+          <h3 class="p-card-title">Klavox®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Amoxicillin + Clavulanic Acid</div>
+          <p class="p-card-desc">Broad-spectrum potentiated antibacterial indicated for severe respiratory tract and soft tissue bacterial infections.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="catalog-item-card reveal-on-scroll delay-300" data-cat="gastro">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">Gastroenterology</span>
+          <h3 class="p-card-title">Pantodad®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Pantoprazole Sodium</div>
+          <p class="p-card-desc">Proton pump inhibitor formulated for rapid, sustained gastric acid suppression and healing of peptic ulcer disease.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="catalog-item-card reveal-on-scroll delay-100" data-cat="cns">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">CNS (Neurology)</span>
+          <h3 class="p-card-title">Neurolin®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Pregabalin</div>
+          <p class="p-card-desc">Targeted therapeutic for peripheral neuropathic pain, generalized anxiety disorders, and adjunctive therapy in partial seizures.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="catalog-item-card reveal-on-scroll delay-200" data-cat="anti-infectives">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">Anti-Infectives</span>
+          <h3 class="p-card-title">Cefodox®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Cefpodoxime Proxetil</div>
+          <p class="p-card-desc">Third-generation oral cephalosporin engineered for high bacterial eradicate rates in community-acquired pneumonia.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+
+      <div class="catalog-item-card reveal-on-scroll delay-300" data-cat="cardio">
+        <div>
+          <span class="anniversary-label" style="margin-bottom: 12px; display: inline-block;">Cardiovascular</span>
+          <h3 class="p-card-title">Valsadad®</h3>
+          <div style="color: #00997A; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Valsartan + Hydrochlorothiazide</div>
+          <p class="p-card-desc">Combination angiotensin II receptor antagonist and diuretic providing powerful 24-hour blood pressure control.</p>
+        </div>
+        <a href="404.html" class="arrow-action-link">
+          <span>Prescribing Information (PDF)</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Comprehensive 4-Column Reference Footer -->
+  <footer class="footer-wrapper">
+    <div class="footer-columns-row">
+      <div class="footer-brand-col">
+        <a href="index.html" class="footer-brand-logo-wrap" aria-label="Dar Aldawa Home">
+          <img src="images/logo-footer-white.png" alt="Dar Aldawa - Trusted Quality" class="footer-brand-logo-img">
+        </a>
+        <p class="footer-brand-bio" data-i18n="footer_desc">
+          Celebrating 50 years of Trusted Quality. Leading regional medicine manufacturing networks to safeguard patient well-being.
+        </p>
+        <div class="footer-social-row">
+          <a href="#" class="social-circle-btn" aria-label="LinkedIn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="#" class="social-circle-btn" aria-label="Facebook">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="#" class="social-circle-btn" aria-label="Twitter">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+          </a>
+          <a href="#" class="social-circle-btn" aria-label="Instagram">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-col-title" data-i18n="footer_col_company">Company</h4>
+        <ul class="footer-links-stack">
+          <li><a href="404.html" class="footer-link-text" data-i18n="footer_link_about">About Our Firm</a></li>
+          <li><a href="404.html" class="footer-link-text" data-i18n="footer_link_board">Our Board of Directors</a></li>
+          <li><a href="404.html" class="footer-link-text" data-i18n="footer_link_cap">Capabilities</a></li>
+          <li><a href="404.html" class="footer-link-text" data-i18n="footer_link_integrity">Corporate Integrity</a></li>
+          <li><a href="404.html" class="footer-link-text" data-i18n="footer_link_careers">Careers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links-col">
+        <h4 class="footer-col-title" data-i18n="footer_col_therapeutics">Therapeutics</h4>
+        <ul class="footer-links-stack">
+          <li><a href="portfolio.html?cat=cardio" class="footer-link-text" data-i18n="footer_link_cardio">Cardiovascular Care</a></li>
+          <li><a href="portfolio.html?cat=anti-infectives" class="footer-link-text" data-i18n="footer_link_anti">Potent Anti-Infectives</a></li>
+          <li><a href="portfolio.html?cat=gastro" class="footer-link-text" data-i18n="footer_link_gastro">Gastroenterology</a></li>
+          <li><a href="portfolio.html?cat=cns" class="footer-link-text" data-i18n="footer_link_cns">Central Nervous System</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-contact-col">
+        <h4 class="footer-col-title" data-i18n="footer_col_contacts">Corporate Contacts</h4>
+        <div class="contact-blocks-stack">
+          <div class="contact-block-item">
+            <span class="contact-heading-teal" data-i18n="footer_hq_title">Jordan Headquarters</span>
+            <span class="contact-detail-line" data-i18n="footer_hq_addr">Amman, Jordan | P.O. Box 930185</span>
+            <span class="contact-detail-line">T: +962 6 553 9161</span>
+          </div>
+          <div class="contact-block-item">
+            <span class="contact-heading-teal" data-i18n="footer_algeria_title">Algeria Regional Office</span>
+            <span class="contact-detail-line">T: +213 21 602288</span>
+          </div>
+          <div class="contact-block-item">
+            <span class="contact-heading-teal" data-i18n="footer_inquiries_title">Direct Inquiries</span>
+            <span class="contact-detail-line" style="color: #CBD5E1;">admin.dad@dadgroup.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom-bar">
+      <span class="footer-copyright-text" data-i18n="footer_rights">© 2026 Dar Al Dawa Development & Investment Co. All rights reserved.</span>
+      <div class="footer-bottom-legal">
+        <a href="404.html" class="legal-link" data-i18n="footer_privacy">Privacy Policy</a>
+        <a href="404.html" class="legal-link" data-i18n="footer_terms">Terms of Use</a>
+        <a href="404.html" class="legal-link" data-i18n="footer_regulatory">Regulatory Statement</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/i18n-data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.getAttribute('data-cat');
+        document.querySelectorAll('.catalog-item-card').forEach(card => {
+          if (cat === 'all' || card.getAttribute('data-cat') === cat) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    const search = document.getElementById('catalogSearchInput');
+    search?.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      document.querySelectorAll('.catalog-item-card').forEach(card => {
+        const txt = card.textContent.toLowerCase();
+        card.style.display = txt.includes(q) ? 'flex' : 'none';
+      });
+    });
+  </script>
+</body>
+</html>

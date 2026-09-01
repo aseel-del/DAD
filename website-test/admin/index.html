@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Management | Dar Aldawa Admin CMS</title>
+  <link rel="stylesheet" href="css/admin.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- =========================================================================
+       1. SIDEBAR NAVIGATION
+       ========================================================================= -->
+  <aside class="admin-sidebar" id="adminSidebar">
+    <div class="sidebar-top">
+      <!-- Brand Logo -->
+      <a href="../index.html" class="sidebar-brand" title="View Dar Aldawa Public Website">
+        <img src="../images/logo-footer-white.png" alt="Dar Aldawa Admin" class="sidebar-brand-img">
+      </a>
+
+      <!-- Navigation Tabs -->
+      <nav>
+        <ul class="sidebar-nav-menu">
+          <li>
+            <button class="nav-item-btn" data-tab="dashboard">
+              <span class="material-symbols-outlined">dashboard</span>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn active" data-tab="news">
+              <span class="material-symbols-outlined">feed</span>
+              <span>News Articles</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="pages">
+              <span class="material-symbols-outlined">layers</span>
+              <span>Pages</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="media">
+              <span class="material-symbols-outlined">perm_media</span>
+              <span>Media Library</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="users">
+              <span class="material-symbols-outlined">group</span>
+              <span>Users</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="categories">
+              <span class="material-symbols-outlined">folder</span>
+              <span>Categories</span>
+            </button>
+          </li>
+          <li>
+            <button class="nav-item-btn" data-tab="settings">
+              <span class="material-symbols-outlined">settings</span>
+              <span>Settings</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Bottom Collapse Action -->
+    <div class="sidebar-bottom">
+      <button class="collapse-sidebar-btn" id="collapseSidebarBtn">
+        <span class="material-symbols-outlined">menu_open</span>
+        <span>Collapse Sidebar</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- =========================================================================
+       2. MAIN CONTENT AREA
+       ========================================================================= -->
+  <div class="admin-main-container" id="adminMain">
+    
+    <!-- Top Header Bar -->
+    <header class="admin-top-bar">
+      <div class="header-breadcrumbs-wrap">
+        <div class="admin-breadcrumb">Admin &gt; <span id="breadcrumbCurrent">News Articles</span></div>
+        <h1 class="admin-page-title" id="pageTitle">News Management</h1>
+      </div>
+
+      <div class="header-user-profile-wrap">
+        <!-- Notification Bell -->
+        <button class="notif-bell-btn" aria-label="Notifications">
+          <span class="material-symbols-outlined">notifications</span>
+          <div class="notif-badge-dot"></div>
+        </button>
+
+        <!-- User Capsule -->
+        <div class="user-profile-capsule">
+          <div class="user-avatar-initials">AB</div>
+          <div class="user-info-text">
+            <span class="user-name-title">Aseel Badran</span>
+            <span class="user-role-subtitle">Chief Administrator</span>
+          </div>
+          <button class="notif-bell-btn" id="logoutBtn" title="Sign Out" style="margin-left: 8px; border-color: #FCA5A5;" aria-label="Sign Out">
+            <span class="material-symbols-outlined" style="font-size: 18px; color: #EF4444;">logout</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- News Management Section (Fully Active) -->
+    <main class="admin-content-body" id="newsManagementSection">
+      
+      <!-- Filter & Action Controls -->
+      <div class="table-action-bar">
+        <div class="filter-left-group">
+          <div class="search-input-box">
+            <span class="material-symbols-outlined">search</span>
+            <input type="text" id="adminSearchInput" class="admin-search-input" placeholder="Search articles...">
+          </div>
+
+          <button class="filter-select-btn" id="statusFilterBtn" onclick="toggleStatusFilter()">
+            <span id="statusFilterBtnText">Status: All</span>
+            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
+          </button>
+
+          <button class="filter-select-btn" id="bulkActionsBtn">
+            <span>Bulk Actions</span>
+            <span class="material-symbols-outlined" style="font-size: 16px;">chevron_right</span>
+          </button>
+        </div>
+
+        <button class="btn-add-primary" onclick="openAddModal()">
+          <span class="material-symbols-outlined" style="font-size: 18px;">add</span>
+          <span>Add New Article</span>
+        </button>
+      </div>
+
+      <!-- Data Table Card -->
+      <div class="admin-table-card">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 40px;"><input type="checkbox" id="selectAllCheckbox"></th>
+              <th>Article Title</th>
+              <th>Category</th>
+              <th>Author</th>
+              <th>Status</th>
+              <th>Date Published</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="articlesTableBody">
+            <!-- Dynamic Rows rendered via admin.js -->
+          </tbody>
+        </table>
+
+        <!-- Table Footer Pagination -->
+        <div class="table-footer-bar">
+          <div id="tableInfoText">Showing 1-6 of 24 articles</div>
+          <div class="pagination-group" id="tablePagination">
+            <!-- Pagination buttons -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Analytics Metrics Cards -->
+      <div class="admin-metrics-row">
+        <div class="admin-metric-card">
+          <div class="metric-header-row">
+            <span class="metric-card-label">Total Articles</span>
+            <span class="metric-dot total"></span>
+          </div>
+          <div class="metric-big-count" id="statTotal">24</div>
+        </div>
+
+        <div class="admin-metric-card">
+          <div class="metric-header-row">
+            <span class="metric-card-label">Published</span>
+            <span class="metric-dot published"></span>
+          </div>
+          <div class="metric-big-count published" id="statPublished">18</div>
+        </div>
+
+        <div class="admin-metric-card">
+          <div class="metric-header-row">
+            <span class="metric-card-label">Drafts</span>
+            <span class="metric-dot drafts"></span>
+          </div>
+          <div class="metric-big-count drafts" id="statDrafts">4</div>
+        </div>
+
+        <div class="admin-metric-card">
+          <div class="metric-header-row">
+            <span class="metric-card-label">Archived</span>
+            <span class="metric-dot archived"></span>
+          </div>
+          <div class="metric-big-count archived" id="statArchived">2</div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Coming Soon Section (For inactive tabs) -->
+    <div class="admin-content-body coming-soon-panel" id="comingSoonSection">
+      <div class="coming-soon-icon">
+        <span class="material-symbols-outlined">construction</span>
+      </div>
+      <h2 class="coming-soon-title" id="comingSoonTabName">Module Under Development</h2>
+      <p class="coming-soon-desc">
+        This module is slated for the next phase of Dar Aldawa's Enterprise CMS release. The <strong>News Articles Management</strong> module is currently fully operational.
+      </p>
+      <button class="btn-add-primary" onclick="document.querySelector('[data-tab=\'news\']').click()" style="margin-top: 8px;">
+        <span class="material-symbols-outlined">arrow_back</span>
+        <span>Return to News Articles</span>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- =========================================================================
+       3. ADD / EDIT ARTICLE MODAL (TRILINGUAL + SEO SUITE)
+       ========================================================================= -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Add New Article</h3>
+        <button class="modal-close-btn" onclick="closeModal()" aria-label="Close modal">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      <!-- Multilingual & SEO Modal Tabs -->
+      <div class="modal-nav-tabs">
+        <button type="button" class="modal-tab-btn active" data-modaltab="general">
+          <span class="material-symbols-outlined" style="font-size: 16px;">tune</span>
+          <span>General</span>
+        </button>
+        <button type="button" class="modal-tab-btn" data-modaltab="en">
+          <span class="material-symbols-outlined" style="font-size: 16px;">language</span>
+          <span>English</span>
+        </button>
+        <button type="button" class="modal-tab-btn" data-modaltab="ar">
+          <span class="material-symbols-outlined" style="font-size: 16px;">translate</span>
+          <span>العربية (AR)</span>
+        </button>
+        <button type="button" class="modal-tab-btn" data-modaltab="fr">
+          <span class="material-symbols-outlined" style="font-size: 16px;">public</span>
+          <span>Français (FR)</span>
+        </button>
+        <button type="button" class="modal-tab-btn" data-modaltab="seo">
+          <span class="material-symbols-outlined" style="font-size: 16px;">search_insights</span>
+          <span>SEO &amp; Visibility</span>
+        </button>
+      </div>
+
+      <form id="articleForm">
+        <div class="modal-form">
+          
+          <!-- Tab 1: General Settings -->
+          <div class="modal-tab-pane active" id="pane-general">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label" for="formCategory">Category *</label>
+                <select id="formCategory" class="form-select" required>
+                  <option value="Financial Release">Financial Release</option>
+                  <option value="Operational">Operational Milestone</option>
+                  <option value="Regional Expansion">Regional Expansion</option>
+                  <option value="Press Release">Press Release</option>
+                  <option value="Events">Events</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="formStatus">Publication Status *</label>
+                <select id="formStatus" class="form-select" required>
+                  <option value="Published">Published</option>
+                  <option value="Draft">Draft</option>
+                  <option value="Archived">Archived</option>
+                </select>
+              </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+              <div class="form-group">
+                <label class="form-label" for="formAuthor">Author *</label>
+                <select id="formAuthor" class="form-select" required>
+                  <option value="Aseel Badran">Aseel Badran</option>
+                  <option value="DAD team">DAD team</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="formDate">Publication Date *</label>
+                <input type="date" id="formDate" class="form-input" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formImage">Cover Image URL *</label>
+              <input type="url" id="formImage" class="form-input" placeholder="https://images.unsplash.com/..." required>
+            </div>
+          </div>
+
+          <!-- Tab 2: English Content -->
+          <div class="modal-tab-pane" id="pane-en">
+            <div class="form-group">
+              <label class="form-label" for="formTitle">English Headline *</label>
+              <input type="text" id="formTitle" class="form-input" placeholder="e.g. Dar Aldawa Expands Regional Production..." required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formDesc">English Summary / Excerpt *</label>
+              <textarea id="formDesc" class="form-textarea" placeholder="Brief summary of the corporate announcement in English..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formBodyEn">Full Body Content (Optional)</label>
+              <textarea id="formBodyEn" class="form-textarea" style="min-height: 120px;" placeholder="Full press release body in English..."></textarea>
+            </div>
+          </div>
+
+          <!-- Tab 3: Arabic Content (RTL) -->
+          <div class="modal-tab-pane" id="pane-ar">
+            <div class="form-group">
+              <label class="form-label" for="formTitleAr">عنوان الخبر (Arabic Headline)</label>
+              <input type="text" id="formTitleAr" class="form-input input-rtl" placeholder="مثال: دار الدواء توسّع نطاق إنتاجها الإقليمي...">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formDescAr">موجز الخبر (Arabic Summary / Excerpt)</label>
+              <textarea id="formDescAr" class="form-textarea input-rtl" placeholder="موجز الإعلان الصحفي باللغة العربية..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formBodyAr">نص المقال الكامل (Full Arabic Content)</label>
+              <textarea id="formBodyAr" class="form-textarea input-rtl" style="min-height: 120px;" placeholder="التفاصيل الكاملة للبيان الصحفي..."></textarea>
+            </div>
+          </div>
+
+          <!-- Tab 4: French Content -->
+          <div class="modal-tab-pane" id="pane-fr">
+            <div class="form-group">
+              <label class="form-label" for="formTitleFr">Titre de l'article (French Headline)</label>
+              <input type="text" id="formTitleFr" class="form-input" placeholder="ex. Dar Aldawa étend ses capacités de production...">
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formDescFr">Résumé de l'article (French Summary / Excerpt)</label>
+              <textarea id="formDescFr" class="form-textarea" placeholder="Bref résumé du communiqué en français..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formBodyFr">Corps de l'article (Full French Content)</label>
+              <textarea id="formBodyFr" class="form-textarea" style="min-height: 120px;" placeholder="Texte complet du communiqué en français..."></textarea>
+            </div>
+          </div>
+
+          <!-- Tab 5: SEO & Search Visibility -->
+          <div class="modal-tab-pane" id="pane-seo">
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label" for="formSlug">SEO URL Slug</label>
+                <span class="char-counter">Auto-slugified</span>
+              </div>
+              <input type="text" id="formSlug" class="form-input" placeholder="e.g. dar-aldawa-board-recommends-dividend">
+            </div>
+
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label" for="formMetaTitle">Meta SEO Title</label>
+                <span class="char-counter" id="metaTitleCounter">0 / 60 chars</span>
+              </div>
+              <input type="text" id="formMetaTitle" class="form-input" maxlength="70" placeholder="e.g. Dar Aldawa Recommends 2026 Dividend Distribution | News">
+            </div>
+
+            <div class="form-group">
+              <div class="form-label-row">
+                <label class="form-label" for="formMetaDesc">Meta SEO Description</label>
+                <span class="char-counter" id="metaDescCounter">0 / 160 chars</span>
+              </div>
+              <textarea id="formMetaDesc" class="form-textarea" maxlength="180" placeholder="Concise description for Google search engines and social share previews..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="formKeywords">Focus SEO Keywords</label>
+              <input type="text" id="formKeywords" class="form-input" placeholder="e.g. pharmaceuticals, dividend, Dar Aldawa, MENA Healthcare">
+            </div>
+
+            <!-- Live Google SERP Snippet Preview -->
+            <div class="serp-preview-box">
+              <div class="serp-preview-header">
+                <span class="material-symbols-outlined" style="font-size: 14px; vertical-align: middle;">preview</span>
+                Google Search Results Live Preview
+              </div>
+              <div class="serp-url-line">
+                <span class="serp-url-badge">https://www.dadgroup.com/media/</span><span id="serpSlugPreview">article-slug</span>
+              </div>
+              <div class="serp-title-line" id="serpTitlePreview">Article Title | Dar Aldawa</div>
+              <div class="serp-desc-line" id="serpDescPreview">Brief summary of the article snippet will appear here on search results pages.</div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-add-primary">Save &amp; Publish</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

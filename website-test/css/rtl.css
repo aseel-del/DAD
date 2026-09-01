@@ -1,0 +1,124 @@
+/* 
+ * RTL (Right-to-Left) Overrides for Arabic Localization
+ * Arabic Font: Cairo
+ * Google Material Symbols Font Protection
+ * Dar Aldawa (DAD Group)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+
+body[dir="rtl"],
+body[dir="rtl"] *:not(.material-symbols-outlined):not([class*="material-symbols"]) {
+  font-family: 'Cairo', sans-serif !important;
+}
+
+body[dir="rtl"] .material-symbols-outlined,
+body[dir="rtl"] [class*="material-symbols"] {
+  font-family: 'Material Symbols Outlined' !important;
+  direction: ltr !important;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+body[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Header & Nav */
+body[dir="rtl"] .nav-link-btn {
+  text-align: right;
+}
+
+body[dir="rtl"] .lang-dropdown-menu {
+  right: auto;
+  left: 0;
+  text-align: right;
+}
+
+body[dir="rtl"] .megamenu-dropdown {
+  text-align: right;
+}
+
+body[dir="rtl"] .megamenu-link-entry:hover {
+  transform: translateX(-4px);
+}
+
+/* Hero & Story */
+body[dir="rtl"] .hero-video-controls-badge {
+  right: auto;
+  left: 40px;
+}
+
+body[dir="rtl"] .hero-content-box {
+  align-items: flex-start;
+  text-align: right;
+}
+
+body[dir="rtl"] .about-story-wrap {
+  align-items: flex-start;
+  text-align: right;
+}
+
+body[dir="rtl"] .quote-callout-box {
+  padding: 0px 24px 0px 0px;
+  border-left: none;
+  border-right: 3px solid #00997A;
+  text-align: right;
+}
+
+/* Metrics Bar */
+body[dir="rtl"] .metric-item-block:not(:last-child)::after {
+  right: auto;
+  left: 0;
+}
+
+/* Cards & Text Alignment */
+body[dir="rtl"] .mvv-card-item,
+body[dir="rtl"] .cap-card-box,
+body[dir="rtl"] .portfolio-card-item,
+body[dir="rtl"] .news-card-box,
+body[dir="rtl"] .catalog-item-card,
+body[dir="rtl"] .investors-right-card,
+body[dir="rtl"] .careers-content-wrap,
+body[dir="rtl"] .investors-left-copy {
+  text-align: right;
+  align-items: flex-start;
+}
+
+body[dir="rtl"] .cap-heading-block,
+body[dir="rtl"] .news-heading-box {
+  text-align: right;
+  align-items: flex-start;
+}
+
+body[dir="rtl"] .cap-header-desc {
+  text-align: right;
+}
+
+/* Icons & Directional Arrows */
+body[dir="rtl"] .btn-solid-teal .material-symbols-outlined,
+body[dir="rtl"] .btn-outline-white .material-symbols-outlined,
+body[dir="rtl"] .arrow-action-link .material-symbols-outlined,
+body[dir="rtl"] .read-announcement-link .material-symbols-outlined,
+body[dir="rtl"] .cap-card-spec-link .material-symbols-outlined {
+  transform: scaleX(-1);
+}
+
+body[dir="rtl"] .investor-report-item:hover,
+body[dir="rtl"] .footer-link-text:hover {
+  transform: translateX(-4px);
+}
+
+/* Footer in RTL */
+body[dir="rtl"] .footer-brand-col,
+body[dir="rtl"] .footer-links-col,
+body[dir="rtl"] .footer-contact-col {
+  text-align: right;
+  align-items: flex-start;
+}
+
+body[dir="rtl"] .footer-col-title::after {
+  left: auto;
+  right: 0;
+}
