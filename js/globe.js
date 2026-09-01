@@ -64,17 +64,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!canvas || !container) return;
 
   const ctx = canvas.getContext('2d');
-  const size = 532;
-  const dpr = window.devicePixelRatio || 1;
-  canvas.width = size * dpr;
-  canvas.height = size * dpr;
-  canvas.style.width = `${size}px`;
-  canvas.style.height = `${size}px`;
-  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  
+  let size = 532;
+  let dpr = window.devicePixelRatio || 1;
+  let radius = size * 0.42;
+  let cx = size / 2;
+  let cy = size / 2;
 
-  const radius = size * 0.42;
-  const cx = size / 2;
-  const cy = size / 2;
+  function updateDimensions() {
+    const rect = container.getBoundingClientRect();
+    const availableWidth = rect.width || (window.innerWidth - 36);
+    size = Math.min(532, Math.max(280, Math.floor(availableWidth)));
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = size * dpr;
+    canvas.height = size * dpr;
+    canvas.style.width = `${size}px`;
+    canvas.style.height = `${size}px`;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    radius = size * 0.42;
+    cx = size / 2;
+    cy = size / 2;
+  }
+
+  updateDimensions();
+  window.addEventListener('resize', updateDimensions);
+
+  canvas.style.touchAction = 'none';
 
   let rotation = [-28, -22, 0];
   let isDragging = false;
@@ -153,9 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // 1. Drop shadow
       ctx.save();
       ctx.shadowColor = "rgba(13, 33, 55, 0.18)";
-      ctx.shadowBlur = 40;
-      ctx.shadowOffsetX = 10;
-      ctx.shadowOffsetY = 16;
+      ctx.shadowBlur = Math.round(size * 0.075);
+      ctx.shadowOffsetX = 8;
+      ctx.shadowOffsetY = 14;
       ctx.beginPath();
       ctx.arc(cx, cy, radius, 0, Math.PI * 2);
       ctx.fillStyle = "#FFFFFF";
@@ -236,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const pt = proj([m.lon, m.lat]);
           if (!pt) return;
           ctx.beginPath();
-          ctx.arc(pt[0], pt[1], 3.5, 0, Math.PI * 2);
+          ctx.arc(pt[0], pt[1], Math.max(2.5, size * 0.0065), 0, Math.PI * 2);
           ctx.fillStyle = "rgba(0, 153, 122, 0.8)";
           ctx.fill();
         }
@@ -250,23 +265,25 @@ document.addEventListener('DOMContentLoaded', () => {
           const [px, py] = pt;
           const pulse = (Math.sin(ts / 900) + 1) / 2;
 
+          const basePinRadius = Math.max(5, size * 0.013);
+
           // Outer pulse ring
           ctx.beginPath();
-          ctx.arc(px, py, 11 + pulse * 8, 0, Math.PI * 2);
+          ctx.arc(px, py, basePinRadius * 1.6 + pulse * 8, 0, Math.PI * 2);
           ctx.strokeStyle = `rgba(0, 153, 122, ${0.28 - pulse * 0.2})`;
           ctx.lineWidth = 1.5;
           ctx.stroke();
 
           // Static inner ring
           ctx.beginPath();
-          ctx.arc(px, py, 11, 0, Math.PI * 2);
+          ctx.arc(px, py, basePinRadius * 1.6, 0, Math.PI * 2);
           ctx.strokeStyle = "rgba(0, 153, 122, 0.32)";
           ctx.lineWidth = 1;
           ctx.stroke();
 
           // Pin body
           ctx.beginPath();
-          ctx.arc(px, py, 7, 0, Math.PI * 2);
+          ctx.arc(px, py, basePinRadius, 0, Math.PI * 2);
           ctx.fillStyle = "#00997A";
           ctx.fill();
           ctx.strokeStyle = "#FFFFFF";
@@ -275,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
           // Center dot
           ctx.beginPath();
-          ctx.arc(px, py, 2.5, 0, Math.PI * 2);
+          ctx.arc(px, py, basePinRadius * 0.35, 0, Math.PI * 2);
           ctx.fillStyle = "#FFFFFF";
           ctx.fill();
         }
@@ -297,12 +314,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   requestAnimationFrame(render);
 
-  // Pointer Drag Interaction
-  canvas.addEventListener('pointerdown', (e) => {
-    canvas.setPointerCapture(e.pointerId);
+  // Unified Drag Handlers for Mouse, Stylus, and Finger Touch
+  function handleDragStart(clientX, clientY) {
     dragStart = {
-      x: e.clientX,
-      y: e.clientY,
+      x: clientX,
+      y: clientY,
       startRot: [...rotation]
     };
     autoRotate = false;
@@ -310,26 +326,46 @@ document.addEventListener('DOMContentLoaded', () => {
     isDragging = true;
     canvas.style.cursor = 'grabbing';
 
-    // Fade out drag cue once user interacts
     const dragCue = document.getElementById('globeDragCue');
     if (dragCue) {
       dragCue.style.opacity = '0';
     }
+  }
+
+  function handleDragMove(clientX, clientY) {
+    if (!dragStart) return;
+    const dx = clientX - dragStart.x;
+    const dy = clientY - dragStart.y;
+    rotation = [
+      dragStart.startRot[0] + dx * 0.38,
+      Math.max(-85, Math.min(85, dragStart.startRot[1] - dy * 0.38)),
+      dragStart.startRot[2]
+    ];
+  }
+
+  function handleDragEnd() {
+    dragStart = null;
+    isDragging = false;
+    canvas.style.cursor = 'grab';
+    if (resumeTimer) clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => {
+      autoRotate = true;
+    }, 2200);
+  }
+
+  // Pointer Events (Desktop & Modern Touch Devices)
+  canvas.addEventListener('pointerdown', (e) => {
+    canvas.setPointerCapture(e.pointerId);
+    handleDragStart(e.clientX, e.clientY);
   });
 
   canvas.addEventListener('pointermove', (e) => {
     if (dragStart) {
-      const dx = e.clientX - dragStart.x;
-      const dy = e.clientY - dragStart.y;
-      rotation = [
-        dragStart.startRot[0] + dx * 0.38,
-        Math.max(-85, Math.min(85, dragStart.startRot[1] - dy * 0.38)),
-        dragStart.startRot[2]
-      ];
+      handleDragMove(e.clientX, e.clientY);
       return;
     }
 
-    // Hover detection for tooltip
+    // Hover detection for tooltip on desktop
     if (typeof d3 !== 'undefined' && d3.geoOrthographic) {
       const rect = canvas.getBoundingClientRect();
       const mx = e.clientX - rect.left;
@@ -348,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (geoDist([o.lon, o.lat], front) < Math.PI / 2 - 0.08) {
           const pt = proj([o.lon, o.lat]);
           if (!pt) continue;
-          if (Math.hypot(mx - pt[0], my - pt[1]) < 18) {
+          if (Math.hypot(mx - pt[0], my - pt[1]) < 22) {
             found = { x: pt[0], y: pt[1], name: o.name, label: o.label };
             break;
           }
@@ -372,15 +408,30 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  function stopDrag() {
-    dragStart = null;
-    isDragging = false;
-    canvas.style.cursor = 'grab';
-    resumeTimer = setTimeout(() => {
-      autoRotate = true;
-    }, 2200);
-  }
+  canvas.addEventListener('pointerup', handleDragEnd);
+  canvas.addEventListener('pointerleave', handleDragEnd);
+  canvas.addEventListener('pointercancel', handleDragEnd);
 
-  canvas.addEventListener('pointerup', stopDrag);
-  canvas.addEventListener('pointerleave', stopDrag);
+  // Direct Mobile Touch Listeners with active preventDefault for iOS/Android Safari & Chrome
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches.length === 1) {
+      e.preventDefault();
+      handleDragStart(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchmove', (e) => {
+    if (e.touches && e.touches.length === 1 && dragStart) {
+      e.preventDefault();
+      handleDragMove(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: false });
+
+  canvas.addEventListener('touchend', (e) => {
+    handleDragEnd();
+  }, { passive: false });
+
+  canvas.addEventListener('touchcancel', (e) => {
+    handleDragEnd();
+  }, { passive: false });
 });

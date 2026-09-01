@@ -1347,12 +1347,24 @@ button {
 }
 
 .globe-render-canvas-wrap {
-  width: 532px;
-  height: 532px;
+  width: 100%;
+  max-width: 532px;
+  aspect-ratio: 1 / 1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  touch-action: none;
+  margin: 0 auto;
+}
+
+#globeCanvas {
+  display: block;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: grab;
 }
 
 .globe-drag-hint-badge {
