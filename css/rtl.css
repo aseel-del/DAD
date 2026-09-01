@@ -45,6 +45,16 @@ body[dir="rtl"] .megamenu-link-entry:hover {
 }
 
 /* Hero & Story */
+body[dir="rtl"] .hero-video-overlay {
+  background: linear-gradient(
+    270deg,
+    rgba(10, 25, 44, 0.88) 0%,
+    rgba(13, 33, 55, 0.68) 42%,
+    rgba(13, 33, 55, 0.25) 75%,
+    rgba(13, 33, 55, 0.08) 100%
+  );
+}
+
 body[dir="rtl"] .hero-video-controls-badge {
   right: auto;
   left: 40px;
