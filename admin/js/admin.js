@@ -452,14 +452,28 @@ function toggleStatusFilter() {
   renderTable();
 }
 
-// Sidebar collapse toggle
+// Sidebar collapse & mobile toggle
 const sidebar = document.getElementById('adminSidebar');
 const mainContainer = document.getElementById('adminMain');
 const collapseBtn = document.getElementById('collapseSidebarBtn');
+const mobileToggleBtn = document.getElementById('adminSidebarToggle');
 
 collapseBtn?.addEventListener('click', () => {
   sidebar.classList.toggle('collapsed');
   mainContainer.classList.toggle('sidebar-collapsed');
+});
+
+mobileToggleBtn?.addEventListener('click', () => {
+  sidebar.classList.toggle('mobile-open');
+});
+
+// Close sidebar on click outside on mobile
+document.addEventListener('click', (e) => {
+  if (window.innerWidth <= 992 && sidebar?.classList.contains('mobile-open')) {
+    if (!sidebar.contains(e.target) && !mobileToggleBtn.contains(e.target)) {
+      sidebar.classList.remove('mobile-open');
+    }
+  }
 });
 
 // Logout handler

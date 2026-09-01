@@ -114,6 +114,12 @@
       <nav aria-label="Main Navigation">
         <ul class="nav-links-list">
           
+          <li class="nav-link-item">
+            <a href="index.html" class="nav-link-btn">
+              <span data-i18n="nav_home">Home</span>
+            </a>
+          </li>
+
           <!-- About Us -->
           <li class="nav-link-item">
             <a href="404.html" class="nav-link-btn">
@@ -318,9 +324,76 @@
           <span class="material-symbols-outlined safety-icon">health_and_safety</span>
           <span data-i18n="btn_pharmacovigilance">Pharmacovigilance</span>
         </a>
+
+        <!-- CMS Admin Quick Access Link -->
+        <a href="admin/index.html" class="nav-search-btn" title="Open CMS Admin Panel" style="background: #EBFDF9; color: #00997A; border-color: #5CE1C6;">
+          <span class="material-symbols-outlined">admin_panel_settings</span>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="mobile-menu-toggle-btn" id="mobileMenuToggleBtn" aria-label="Toggle Navigation Menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Navigation Drawer -->
+  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+  <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation">
+    <div class="mobile-drawer-header">
+      <img src="images/logo.png" alt="Dar Aldawa" class="mobile-drawer-logo">
+      <button class="mobile-drawer-close" id="mobileDrawerClose" aria-label="Close Navigation">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+    <div class="mobile-drawer-body">
+      <a href="index.html" class="mobile-nav-link">
+        <span data-i18n="nav_home">Home</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="404.html" class="mobile-nav-link">
+        <span data-i18n="nav_about">About Us</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="portfolio.html" class="mobile-nav-link active">
+        <span data-i18n="nav_portfolio">Portfolio</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="404.html" class="mobile-nav-link">
+        <span data-i18n="nav_capabilities">Capabilities</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="404.html" class="mobile-nav-link">
+        <span data-i18n="nav_reach">Presence</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="404.html" class="mobile-nav-link">
+        <span data-i18n="nav_investors">Investors</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="news.html" class="mobile-nav-link">
+        <span data-i18n="nav_media">Media Center</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+      <a href="404.html" class="mobile-nav-link">
+        <span data-i18n="nav_contact">Contact Us</span>
+        <span class="material-symbols-outlined">chevron_right</span>
+      </a>
+
+      <div class="mobile-lang-selector-title">Language / اللغة</div>
+      <div class="mobile-lang-pills-row">
+        <button class="mobile-lang-pill" data-lang="en">EN</button>
+        <button class="mobile-lang-pill" data-lang="ar">العربية</button>
+        <button class="mobile-lang-pill" data-lang="fr">FR</button>
+      </div>
+
+      <a href="404.html" class="mobile-safety-btn">
+        <span class="material-symbols-outlined">health_and_safety</span>
+        <span data-i18n="btn_pharmacovigilance">Pharmacovigilance</span>
+      </a>
+    </div>
+  </aside>
 
   <!-- Page Hero -->
   <section class="page-hero">

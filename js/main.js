@@ -67,6 +67,51 @@ document.addEventListener('DOMContentLoaded', () => {
     langDropdownMenu?.classList.remove('active');
   });
 
+  // Mobile Navigation Drawer Toggle
+  const mobileToggleBtn = document.getElementById('mobileMenuToggleBtn');
+  const mobileDrawer = document.getElementById('mobileNavDrawer');
+  const mobileBackdrop = document.getElementById('mobileNavBackdrop');
+  const mobileDrawerClose = document.getElementById('mobileDrawerClose');
+
+  function openMobileMenu() {
+    mobileDrawer?.classList.add('active');
+    mobileBackdrop?.classList.add('active');
+    mobileToggleBtn?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    mobileDrawer?.classList.remove('active');
+    mobileBackdrop?.classList.remove('active');
+    mobileToggleBtn?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  mobileToggleBtn?.addEventListener('click', () => {
+    if (mobileDrawer?.classList.contains('active')) {
+      closeMobileMenu();
+    } else {
+      openMobileMenu();
+    }
+  });
+
+  mobileDrawerClose?.addEventListener('click', closeMobileMenu);
+  mobileBackdrop?.addEventListener('click', closeMobileMenu);
+
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', closeMobileMenu);
+  });
+
+  document.querySelectorAll('.mobile-lang-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const l = btn.getAttribute('data-lang');
+      if (l) {
+        applyLanguage(l);
+        closeMobileMenu();
+      }
+    });
+  });
+
   // Apply initial language
   applyLanguage(currentLang);
 

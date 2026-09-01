@@ -55,9 +55,16 @@ body[dir="rtl"] .hero-video-overlay {
   );
 }
 
-body[dir="rtl"] .hero-video-controls-badge {
+/* RTL Mobile Drawer */
+body[dir="rtl"] .mobile-nav-drawer {
   right: auto;
-  left: 40px;
+  left: 0;
+  transform: translateX(-100%);
+  box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2);
+}
+
+body[dir="rtl"] .mobile-nav-drawer.active {
+  transform: translateX(0);
 }
 
 body[dir="rtl"] .hero-content-box {
