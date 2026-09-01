@@ -2654,12 +2654,12 @@ button {
   font-size: 14px;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .nav-links-list {
-    display: none;
+    display: none !important;
   }
   .mobile-menu-toggle-btn {
-    display: flex;
+    display: flex !important;
   }
   .about-flex-row, .investors-flex-row, .capabilities-header-row, .news-top-bar {
     flex-direction: column;
@@ -2673,40 +2673,113 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
   .footer-columns-row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
   }
 }
 
 @media (max-width: 768px) {
   .sticky-nav {
     padding: 0 16px;
-    height: 72px;
+    height: 68px;
+  }
+  .nav-container {
+    gap: 10px;
   }
   .brand-logo-img {
-    height: 36px;
+    height: 32px;
+    max-width: 140px;
   }
   .safety-btn {
-    display: none;
+    display: none !important;
+  }
+  .lang-dropdown-wrap {
+    display: none !important;
+  }
+  .nav-actions-group {
+    gap: 8px;
+  }
+  .nav-search-btn {
+    width: 38px;
+    height: 38px;
+  }
+  .mobile-menu-toggle-btn {
+    width: 38px;
+    height: 38px;
   }
   .hero-section {
-    padding: 100px 20px 80px;
-    min-height: 560px;
+    padding: 90px 18px 40px;
+    min-height: auto;
   }
   .hero-main-heading {
-    font-size: 34px;
+    font-size: 30px;
+    line-height: 1.25;
   }
   .hero-description-text {
     font-size: 15px;
+    line-height: 1.55;
+  }
+  .hero-actions-row {
+    flex-direction: column;
+    width: 100%;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .btn-solid-teal, .btn-outline-white {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 13px 20px;
+    font-size: 14.5px;
+    box-sizing: border-box;
+  }
+  .hero-video-bar-wrap {
+    position: static;
+    margin-top: 28px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    z-index: 5;
+  }
+  .hero-watch-film-btn, .hero-video-controls-badge {
+    width: 100%;
+    max-width: 100%;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  .metrics-bar-section {
+    padding: 36px 18px;
   }
   .metrics-grid-wrap {
     grid-template-columns: 1fr 1fr;
-    gap: 18px;
+    gap: 16px;
   }
   .metric-item-block:not(:last-child)::after {
     display: none;
   }
+  .metric-big-number {
+    font-size: 32px;
+  }
+  .metric-caption-label {
+    font-size: 12px;
+  }
   .mvv-cards-row, .capabilities-grid-row, .portfolio-cards-row, .news-cards-row {
     grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .portfolio-section, .about-section, .capabilities-section, .news-section, .investors-section {
+    padding: 60px 18px;
+  }
+  .section-main-heading {
+    font-size: 28px;
+  }
+  .footer-corporate-section {
+    padding: 50px 18px 24px;
   }
   .footer-columns-row {
     grid-template-columns: 1fr;
@@ -2716,5 +2789,45 @@ button {
     flex-direction: column;
     gap: 12px;
     text-align: center;
+    padding-top: 20px;
+  }
+  .footer-bottom-legal {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+  }
+  .search-modal {
+    padding: 16px 12px;
+  }
+  .search-spotlight-dialog {
+    max-height: 88vh;
+    border-radius: 16px;
+  }
+  .search-input-header {
+    padding: 14px 16px;
+  }
+  .search-categories-bar {
+    padding: 8px 14px;
+    gap: 6px;
+  }
+  .search-kbd-hint {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-logo-img {
+    height: 28px;
+    max-width: 125px;
+  }
+  .metrics-grid-wrap {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .hero-main-heading {
+    font-size: 26px;
+  }
+  .section-main-heading {
+    font-size: 24px;
   }
 }

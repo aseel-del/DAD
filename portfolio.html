@@ -104,8 +104,11 @@
       .products-grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 768px) {
-      .products-grid { grid-template-columns: 1fr; padding-left: 20px; padding-right: 20px; }
-      .search-input-field { width: 100%; }
+      .catalog-controls { padding: 12px 16px; }
+      .catalog-controls > div { flex-direction: column; align-items: stretch; gap: 12px; }
+      .filter-btn-group { width: 100%; overflow-x: auto; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+      .products-grid { grid-template-columns: 1fr; padding: 40px 18px 80px; gap: 18px; }
+      .search-input-field { width: 100%; box-sizing: border-box; }
     }
   </style>
 </head>
