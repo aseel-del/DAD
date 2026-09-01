@@ -200,52 +200,270 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(metricsSection);
   }
 
-  // 5. Search Modal Toggle
-  const searchTriggers = document.querySelectorAll('#searchTriggerBtn, .search-trigger-btn');
+  // =========================================================================
+  // 5. LIVE SPOTLIGHT SEARCH ENGINE
+  // =========================================================================
+  const SEARCH_DATABASE = [
+    // Products
+    { title: "Amoxicillin & Clavulanate (Augmax)", category: "products", badge: "Anti-Infective", desc: "Broad-spectrum oral suspension and film-coated tablets.", icon: "medication", url: "portfolio.html?cat=anti-infectives" },
+    { title: "Ciprofloxacin (Ciprodad)", category: "products", badge: "Anti-Infective", desc: "Fluoroquinolone antibiotic for serious bacterial infections.", icon: "medication", url: "portfolio.html?cat=anti-infectives" },
+    { title: "Azithromycin (Azidad)", category: "products", badge: "Anti-Infective", desc: "Macrolide antibiotic 500mg capsules and pediatric suspension.", icon: "medication", url: "portfolio.html?cat=anti-infectives" },
+    { title: "Atorvastatin (Lipidad)", category: "products", badge: "Cardiovascular", desc: "HMG-CoA reductase inhibitor for lipid management and heart health.", icon: "cardiology", url: "portfolio.html?cat=cardiovascular" },
+    { title: "Metformin HCl (Glucodad)", category: "products", badge: "Cardiovascular", desc: "First-line oral anti-hyperglycemic agent for Type 2 Diabetes.", icon: "cardiology", url: "portfolio.html?cat=cardiovascular" },
+    { title: "Losartan Potassium (Tensodad)", category: "products", badge: "Cardiovascular", desc: "Angiotensin II receptor blocker for hypertension therapy.", icon: "cardiology", url: "portfolio.html?cat=cardiovascular" },
+    { title: "Omeprazole (Gastrofast)", category: "products", badge: "Gastrointestinal", desc: "Proton pump inhibitor for GERD and peptic ulcer disease.", icon: "nutrition", url: "portfolio.html?cat=gastrointestinal" },
+    { title: "Pantoprazole (Pantodad)", category: "products", badge: "Gastrointestinal", desc: "Delayed-release tablets and IV formulation for acid reflux.", icon: "nutrition", url: "portfolio.html?cat=gastrointestinal" },
+    { title: "Fluoxetine (Moodad)", category: "products", badge: "CNS", desc: "Selective serotonin reuptake inhibitor (SSRI) for mental wellness.", icon: "psychology", url: "portfolio.html?cat=cns" },
+    { title: "Pregabalin (Neurodad)", category: "products", badge: "CNS", desc: "Neuropathic pain relief and focal seizure adjunct therapy.", icon: "psychology", url: "portfolio.html?cat=cns" },
+    { title: "Salbutamol Inhaler (Ventodad)", category: "products", badge: "Respiratory", desc: "Fast-acting bronchodilator aerosol inhaler for asthma management.", icon: "pulmonology", url: "portfolio.html?cat=respiratory" },
+    { title: "Montelukast (Asmadad)", category: "products", badge: "Respiratory", desc: "Leukotriene receptor antagonist chewable tablets for asthma prevention.", icon: "pulmonology", url: "portfolio.html?cat=respiratory" },
+
+    // Therapeutics
+    { title: "Cardiovascular & Diabetes Portfolio", category: "therapeutics", badge: "45+ Products", desc: "Hypertension, dyslipidemia, coronary health, and glycemic regulation.", icon: "favorite", url: "portfolio.html?cat=cardiovascular" },
+    { title: "Anti-Infectives & Antimicrobials", category: "therapeutics", badge: "60+ Products", desc: "Penicillins, cephalosporins, macrolides, and systemic antifungals.", icon: "shield", url: "portfolio.html?cat=anti-infectives" },
+    { title: "Central Nervous System (CNS)", category: "therapeutics", badge: "28+ Products", desc: "Neuropsychiatry, pain management, anti-epileptic, and cognitive therapies.", icon: "psychology", url: "portfolio.html?cat=cns" },
+    { title: "Gastroenterology & Hepatology", category: "therapeutics", badge: "32+ Products", desc: "Proton pump inhibitors, motility agents, and liver protective agents.", icon: "healing", url: "portfolio.html?cat=gastrointestinal" },
+    { title: "Respiratory & Allergy Solutions", category: "therapeutics", badge: "24+ Products", desc: "Metered dose inhalers, anti-histamines, and cough preparations.", icon: "air", url: "portfolio.html?cat=respiratory" },
+
+    // Company & Facilities
+    { title: "50-Year Milestones & Heritage (1975–2025)", category: "company", badge: "Golden Jubilee", desc: "Five decades of pharmaceutical leadership and innovation across MENA.", icon: "military_tech", url: "404.html" },
+    { title: "7 Manufacturing Plants (Jordan & Algeria)", category: "company", badge: "Production", desc: "World-class sterile, injectable, solid oral, and liquid formulation facilities.", icon: "factory", url: "404.html" },
+    { title: "Research & Development Center (R&D)", category: "company", badge: "Innovation", desc: "State-of-the-art bioequivalence, formulation, and stability laboratories.", icon: "biotech", url: "404.html" },
+    { title: "Quality Assurance & CGMP Certifications", category: "company", badge: "Compliance", desc: "Strict adherence to USP, BP, EP standards and global regulatory bodies.", icon: "verified", url: "404.html" },
+    { title: "Global Presence (40+ Export Markets)", category: "company", badge: "Global", desc: "Supplying life-saving medicines across Middle East, Africa, and Europe.", icon: "public", url: "index.html#reach" },
+    { title: "Investor Relations & Financial Reports", category: "company", badge: "Investors", desc: "Annual disclosures, general assembly reports, and corporate governance.", icon: "bar_chart", url: "404.html" },
+    { title: "Pharmacovigilance & Safety Reporting", category: "company", badge: "Safety", desc: "24/7 dedicated medical adverse event reporting system for patient safety.", icon: "health_and_safety", url: "404.html" },
+
+    // News
+    { title: "Dar Aldawa Celebrates 50th Golden Jubilee Anniversary", category: "news", badge: "Press Release", desc: "Honoring 50 years of delivering trusted quality medicine to global markets.", icon: "feed", url: "news.html" },
+    { title: "Algerian Plant Expansion Boosts Sterile Oncology Capacity", category: "news", badge: "Expansion", desc: "Phase 3 production line brings high-potency oral and injectable capabilities.", icon: "feed", url: "news.html" },
+    { title: "Dar Aldawa Signs Strategic Biotechnology R&D Partnership", category: "news", badge: "R&D", desc: "Collaborative agreement to accelerate biosimilar and novel drug development.", icon: "feed", url: "news.html" },
+    { title: "Dar Aldawa Receives European CGMP Renewal Certification", category: "news", badge: "Regulatory", desc: "Audits confirm international compliance across Jordanian manufacturing units.", icon: "feed", url: "news.html" }
+  ];
+
   const searchModal = document.getElementById('searchModal');
-  const searchClose = document.getElementById('searchCloseBtn');
   const searchInput = document.getElementById('searchInput');
+  const searchClose = document.getElementById('searchCloseBtn');
+  const searchClear = document.getElementById('searchClearBtn');
+  const searchResultsList = document.getElementById('searchResultsList');
+  const searchCountText = document.getElementById('searchResultCountText');
+  const catTabs = document.querySelectorAll('.search-cat-tab');
+  const searchTriggers = document.querySelectorAll('#searchTriggerBtn, .nav-search-btn');
+
+  let activeCategory = 'all';
+  let selectedIndex = -1;
+
+  function openSearch() {
+    searchModal?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+      searchInput?.focus();
+      renderSearchResults();
+    }, 100);
+  }
+
+  function closeSearch() {
+    searchModal?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
 
   searchTriggers.forEach(btn => {
     btn.addEventListener('click', (e) => {
       e.preventDefault();
-      searchModal?.classList.add('active');
-      setTimeout(() => searchInput?.focus(), 100);
+      openSearch();
     });
   });
 
-  searchClose?.addEventListener('click', () => {
-    searchModal?.classList.remove('active');
-  });
+  searchClose?.addEventListener('click', closeSearch);
 
   searchModal?.addEventListener('click', (e) => {
-    if (e.target === searchModal) {
-      searchModal.classList.remove('active');
-    }
+    if (e.target === searchModal) closeSearch();
   });
 
+  searchClear?.addEventListener('click', () => {
+    if (searchInput) searchInput.value = '';
+    searchClear.style.display = 'none';
+    searchInput?.focus();
+    renderSearchResults();
+  });
+
+  searchInput?.addEventListener('input', () => {
+    if (searchClear) {
+      searchClear.style.display = searchInput.value ? 'flex' : 'none';
+    }
+    selectedIndex = -1;
+    renderSearchResults();
+  });
+
+  catTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      catTabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      activeCategory = tab.getAttribute('data-filter') || 'all';
+      selectedIndex = -1;
+      renderSearchResults();
+    });
+  });
+
+  function highlightMatch(text, query) {
+    if (!query) return text;
+    const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+  }
+
+  function renderSearchResults() {
+    if (!searchResultsList) return;
+    const query = (searchInput?.value || '').trim().toLowerCase();
+
+    let filtered = SEARCH_DATABASE.filter(item => {
+      const matchCat = activeCategory === 'all' || item.category === activeCategory;
+      const matchQuery = !query || 
+        item.title.toLowerCase().includes(query) || 
+        item.desc.toLowerCase().includes(query) ||
+        item.badge.toLowerCase().includes(query);
+      return matchCat && matchQuery;
+    });
+
+    if (filtered.length === 0) {
+      searchResultsList.innerHTML = `
+        <div class="search-empty-state">
+          <span class="material-symbols-outlined" style="font-size: 36px; color: #94A3B8;">search_off</span>
+          <div style="font-weight: 700; color: #0D2137; font-size: 15px;">No results found for "${query}"</div>
+          <div style="font-size: 13px; color: #64748B;">Try searching for <em>Cardiovascular</em>, <em>Amoxicillin</em>, <em>Algeria</em>, or <em>Milestones</em>.</div>
+        </div>
+      `;
+      if (searchCountText) searchCountText.textContent = `0 results found`;
+      return;
+    }
+
+    if (searchCountText) {
+      searchCountText.textContent = query 
+        ? `${filtered.length} matching result${filtered.length > 1 ? 's' : ''}` 
+        : `Showing ${filtered.length} featured items`;
+    }
+
+    searchResultsList.innerHTML = filtered.map((item, idx) => `
+      <a href="${item.url}" class="search-result-item ${idx === selectedIndex ? 'selected' : ''}" data-index="${idx}">
+        <div class="search-result-left">
+          <div class="search-result-icon-box">
+            <span class="material-symbols-outlined" style="font-size: 20px;">${item.icon}</span>
+          </div>
+          <div>
+            <div class="search-result-title">${highlightMatch(item.title, query)}</div>
+            <div class="search-result-desc">${highlightMatch(item.desc, query)}</div>
+          </div>
+        </div>
+        <span class="search-result-badge">${item.badge}</span>
+      </a>
+    `).join('');
+  }
+
+  // Keyboard Navigation for Search Modal
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && searchModal?.classList.contains('active')) {
-      searchModal.classList.remove('active');
+    if (searchModal?.classList.contains('active')) {
+      const items = searchResultsList?.querySelectorAll('.search-result-item') || [];
+      
+      if (e.key === 'Escape') {
+        closeSearch();
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+        updateSelection(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        selectedIndex = Math.max(selectedIndex - 1, 0);
+        updateSelection(items);
+      } else if (e.key === 'Enter' && selectedIndex >= 0 && items[selectedIndex]) {
+        e.preventDefault();
+        items[selectedIndex].click();
+      }
+    } else {
+      // Global shortcut Cmd+K or Ctrl+K to open search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        openSearch();
+      }
     }
   });
 
-  // 6. Hero Background Video Toggle Control
+  function updateSelection(items) {
+    items.forEach((item, idx) => {
+      if (idx === selectedIndex) {
+        item.classList.add('selected');
+        item.scrollIntoView({ block: 'nearest' });
+      } else {
+        item.classList.remove('selected');
+      }
+    });
+  }
+
+  // =========================================================================
+  // 6. CINEMATIC VIDEO CONTROLS & FULL HD LIGHTBOX
+  // =========================================================================
   const heroVideo = document.getElementById('heroBgVideo');
   const videoToggleBtn = document.getElementById('videoToggleBtn');
   const videoIcon = document.getElementById('videoIcon');
   const videoStatusText = document.getElementById('videoStatusText');
 
+  const watchFilmBtn = document.getElementById('watchFilmBtn');
+  const videoLightboxModal = document.getElementById('videoLightboxModal');
+  const videoLightboxClose = document.getElementById('videoLightboxClose');
+  const lightboxVideoPlayer = document.getElementById('lightboxVideoPlayer');
+
+  // Background Ambient Video Play/Pause
   videoToggleBtn?.addEventListener('click', () => {
     if (!heroVideo) return;
     if (heroVideo.paused) {
       heroVideo.play();
       if (videoIcon) videoIcon.textContent = 'pause';
-      if (videoStatusText) videoStatusText.textContent = 'Video Active';
+      if (videoStatusText) videoStatusText.textContent = 'Ambient Video';
     } else {
       heroVideo.pause();
       if (videoIcon) videoIcon.textContent = 'play_arrow';
       if (videoStatusText) videoStatusText.textContent = 'Video Paused';
+    }
+  });
+
+  // Watch 50th Anniversary Film Lightbox Modal
+  function openVideoLightbox() {
+    videoLightboxModal?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    if (lightboxVideoPlayer) {
+      lightboxVideoPlayer.currentTime = 0;
+      lightboxVideoPlayer.play().catch(() => {});
+    }
+    // Pause background video while lightbox is playing
+    if (heroVideo && !heroVideo.paused) {
+      heroVideo.pause();
+    }
+  }
+
+  function closeVideoLightbox() {
+    videoLightboxModal?.classList.remove('active');
+    document.body.style.overflow = '';
+    if (lightboxVideoPlayer) {
+      lightboxVideoPlayer.pause();
+    }
+    // Resume background video
+    if (heroVideo && heroVideo.paused) {
+      heroVideo.play().catch(() => {});
+    }
+  }
+
+  watchFilmBtn?.addEventListener('click', (e) => {
+    e.preventDefault();
+    openVideoLightbox();
+  });
+
+  videoLightboxClose?.addEventListener('click', closeVideoLightbox);
+
+  videoLightboxModal?.addEventListener('click', (e) => {
+    if (e.target === videoLightboxModal) closeVideoLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoLightboxModal?.classList.contains('active')) {
+      closeVideoLightbox();
     }
   });
 });

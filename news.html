@@ -532,6 +532,44 @@
     </div>
   </footer>
 
+  <!-- Live Spotlight Search Modal -->
+  <div class="search-modal" id="searchModal">
+    <div class="search-spotlight-dialog" id="searchSpotlightDialog">
+      <div class="search-input-header">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" id="searchInput" class="search-live-input" placeholder="Search medicines, therapeutic areas, news, or reports..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" style="display: none;" aria-label="Clear Search">
+          <span class="material-symbols-outlined" style="font-size: 18px;">backspace</span>
+        </button>
+        <button class="search-close-btn" id="searchCloseBtn" aria-label="Close Search">
+          <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+        </button>
+      </div>
+
+      <!-- Quick Filter Categories -->
+      <div class="search-categories-bar">
+        <button class="search-cat-tab active" data-filter="all">All Results</button>
+        <button class="search-cat-tab" data-filter="products">Medicines</button>
+        <button class="search-cat-tab" data-filter="therapeutics">Therapeutics</button>
+        <button class="search-cat-tab" data-filter="news">Media & News</button>
+        <button class="search-cat-tab" data-filter="company">Corporate & Plants</button>
+      </div>
+
+      <!-- Live Results Container -->
+      <div class="search-results-list" id="searchResultsList"></div>
+
+      <!-- Footer Keyboard Shortcuts & Stats -->
+      <div class="search-footer-bar">
+        <span id="searchResultCountText">Type to start searching across 100+ items</span>
+        <div class="search-shortcuts">
+          <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+          <span><kbd>↵</kbd> Open</span>
+          <span><kbd>ESC</kbd> Close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="js/i18n-data.js"></script>
   <script src="js/main.js"></script>
   <script>

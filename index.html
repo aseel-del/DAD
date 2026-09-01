@@ -498,11 +498,19 @@
       <div class="hero-video-overlay"></div>
     </div>
 
-    <!-- Video Play/Pause Toggle -->
-    <button class="hero-video-controls-badge" id="videoToggleBtn" aria-label="Toggle Hero Video">
-      <span class="material-symbols-outlined" id="videoIcon">pause</span>
-      <span id="videoStatusText">Video Active</span>
-    </button>
+    <!-- Cinematic Floating Video Bar -->
+    <div class="hero-video-bar-wrap">
+      <button class="hero-watch-film-btn" id="watchFilmBtn" aria-label="Watch 50th Anniversary Film">
+        <div class="hero-live-pulse-dot"></div>
+        <span class="material-symbols-outlined" style="font-size: 18px; color: #5CE1C6;">play_circle</span>
+        <span>Watch 50th Anniversary Film</span>
+      </button>
+
+      <button class="hero-video-controls-badge" id="videoToggleBtn" aria-label="Toggle Background Video">
+        <span class="material-symbols-outlined" id="videoIcon">pause</span>
+        <span id="videoStatusText">Ambient Video</span>
+      </button>
+    </div>
 
     <div class="inner-container">
       <div class="hero-content-box reveal-on-scroll">
@@ -1089,18 +1097,62 @@
     </div>
   </footer>
 
-  <!-- Search Modal -->
+  <!-- Live Spotlight Search Modal -->
   <div class="search-modal" id="searchModal">
-    <div class="search-dialog">
-      <div class="search-input-group">
-        <span class="material-symbols-outlined" style="color: #00997A; font-size: 24px;">search</span>
-        <input type="text" id="searchInput" class="search-input" placeholder="Search therapeutic areas, products, news, or reports...">
+    <div class="search-spotlight-dialog" id="searchSpotlightDialog">
+      <div class="search-input-header">
+        <span class="material-symbols-outlined search-icon">search</span>
+        <input type="text" id="searchInput" class="search-live-input" placeholder="Search medicines, therapeutic areas, news, or reports..." autocomplete="off">
+        <button class="search-clear-btn" id="searchClearBtn" style="display: none;" aria-label="Clear Search">
+          <span class="material-symbols-outlined" style="font-size: 18px;">backspace</span>
+        </button>
         <button class="search-close-btn" id="searchCloseBtn" aria-label="Close Search">
-          <span class="material-symbols-outlined">close</span>
+          <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
         </button>
       </div>
-      <div style="padding-top: 1rem; font-size: 0.85rem; color: #5A6A7D;">
-        Popular: <em>Cardiovascular</em>, <em>Anti-infectives</em>, <em>Annual Report 2025</em>, <em>GMP Certifications</em>, <em>Pharmacovigilance Form</em>
+
+      <!-- Quick Filter Categories -->
+      <div class="search-categories-bar">
+        <button class="search-cat-tab active" data-filter="all">All Results</button>
+        <button class="search-cat-tab" data-filter="products">Medicines</button>
+        <button class="search-cat-tab" data-filter="therapeutics">Therapeutics</button>
+        <button class="search-cat-tab" data-filter="news">Media & News</button>
+        <button class="search-cat-tab" data-filter="company">Corporate & Plants</button>
+      </div>
+
+      <!-- Live Results Container -->
+      <div class="search-results-list" id="searchResultsList">
+        <!-- Dynamically rendered live search items -->
+      </div>
+
+      <!-- Footer Keyboard Shortcuts & Stats -->
+      <div class="search-footer-bar">
+        <span id="searchResultCountText">Type to start searching across 100+ items</span>
+        <div class="search-shortcuts">
+          <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+          <span><kbd>↵</kbd> Open</span>
+          <span><kbd>ESC</kbd> Close</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cinematic Full HD Video Lightbox Modal -->
+  <div class="video-lightbox-modal" id="videoLightboxModal">
+    <div class="video-lightbox-card">
+      <div class="video-lightbox-header">
+        <div class="video-lightbox-title">
+          <span class="material-symbols-outlined" style="color: #5CE1C6;">movie</span>
+          <span>Dar Aldawa 50-Year Anniversary Corporate Film (1975–2025)</span>
+        </div>
+        <button class="video-lightbox-close" id="videoLightboxClose" aria-label="Close Video">
+          <span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+        </button>
+      </div>
+      <div class="video-lightbox-player-wrap">
+        <video id="lightboxVideoPlayer" controls playsinline preload="metadata" poster="https://images.unsplash.com/photo-1582719471384-894fbb16e074?q=80&w=2000&auto=format&fit=crop">
+          <source src="https://www.dadgroup.com/wp-content/uploads/2025/09/Hero-Vid-2-comp-5.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
