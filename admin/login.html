@@ -378,7 +378,7 @@
     <div class="quick-preset-wrap">
       <span class="quick-preset-label">Quick Demo Access</span>
       <button class="preset-pill-btn" onclick="fillCredentials('aseel.badran@dadgroup.com', 'Admin@2026')">
-        <span><strong>Aseel Badran</strong> (Chief Administrator)</span>
+        <span><strong>Aseel Badran</strong> (Super Administrator)</span>
         <span class="material-symbols-outlined" style="font-size: 16px;">login</span>
       </button>
     </div>
@@ -425,7 +425,7 @@
       if (u && p.length >= 4) {
         sessionStorage.setItem('dad_admin_session', JSON.stringify({
           user: u.includes('aseel') ? 'Aseel Badran' : 'Aseel Badran',
-          role: 'Chief Administrator',
+          role: 'Super Administrator',
           email: u,
           loggedAt: new Date().toISOString()
         }));
